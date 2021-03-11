@@ -135,11 +135,11 @@ namespace Microsoft.Research.Naiad.Examples.DifferentialDataflow
                 var queries = computation.NewInputCollection<Query>();
 
                 // each document is broken down into a collection of terms, each with associated identifier.
-                var dTerms = documents.SelectMany(doc => doc.text.Split(' ').Select(term => new Document(term, doc.id)))
+                var dTerms = documents.SelectMany(doc => doc.text.Split(' ', StringSplitOptions.None).Select(term => new Document(term, doc.id)))
                                       .Distinct();
 
                 // each query is broken down into a collection of terms, each with associated identifier and threshold.
-                var qTerms = queries.SelectMany(query => query.text.Split(' ').Select(term => new Query(term, query.id, query.threshold)))
+                var qTerms = queries.SelectMany(query => query.text.Split(' ', StringSplitOptions.None).Select(term => new Query(term, query.id, query.threshold)))
                                     .Distinct();
 
                 // doc terms and query terms are joined, matching pairs are counted and returned if the count exceeds the threshold.

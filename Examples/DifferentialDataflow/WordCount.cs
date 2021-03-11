@@ -47,7 +47,7 @@ namespace Microsoft.Research.Naiad.Examples.DifferentialDataflow
                 var text = computation.NewInputCollection<string>();
 
                 // segment strings, count, and print
-                text.SelectMany(x => x.Split(' '))
+                text.SelectMany(x => x.Split(' ', StringSplitOptions.None))
                     .Count(y => y, (k, c) => k + ":" + c)   // yields "word:count" for each word
                     .Subscribe(l => { foreach (var element in l) Console.WriteLine(element); });
 
